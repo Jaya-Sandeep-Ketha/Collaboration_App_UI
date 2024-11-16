@@ -2,8 +2,22 @@ import React from 'react';
 import landingPage2 from '../../assets/landingPage2.jpg';
 import { Typography } from '@material-tailwind/react';
 import Buttons from './Buttons';
-
+import RegisterForm from './RegisterForm';
+import LoginForm from './LoginForm';
+import { useState } from 'react';
 function Landing() {
+  const [isAdminBtnClicked, setIsAdminBtnClicked] = useState(false)
+  const [isUserBtnClicked, setIsUserBtnClicked] = useState(false)
+
+
+  const handleAdminBtnClick = () => {
+    setIsAdminBtnClicked(true)
+    setIsUserBtnClicked(false)
+  }
+  const handleUserBtnClick = () => {
+    setIsUserBtnClicked(true)
+    setIsAdminBtnClicked(false)
+  }
   return (
     <>
       <div
@@ -16,12 +30,18 @@ function Landing() {
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-5"></div>
         <div
           className="absolute top-0 left-0 w-full h-full"
-          style={{ backdropFilter: 'blur(0px)' }}
+          style={{ backdropFilter: 'blur(10px)' }}
         ></div>
 
-        {/* Buttons Positioned Slightly Down and Left */}
+        {/* Buttons and Register Form Container */}
         <div className="absolute top-20 right-20 z-40">
-          <Buttons />
+          {/* Buttons */}
+          <Buttons onAdminClick = {handleAdminBtnClick} onUserClick={handleUserBtnClick}/>
+          {/* Register Form */}
+          <div className="absolute mt-6 right-20">
+           {isAdminBtnClicked ? <RegisterForm/> :<LoginForm/>}
+          </div>
+
         </div>
 
         {/* Main Content */}
@@ -42,7 +62,7 @@ function Landing() {
             </Typography>
             <Typography
               variant="h1"
-              className="text-white text-4xl md:text-6xl lg:text-6xl ml-20 font-light mt-3"
+              className="text-white text-4xl md:text-6xl lg:text-7xl ml-10 font-light mt-3"
             >
               Work as One
             </Typography>
