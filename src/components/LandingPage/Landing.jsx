@@ -1,5 +1,5 @@
 import React from 'react';
-import landingPage2 from '../../assets/landingPage2.jpg';
+import landingPage3 from '../../assets/landingPage3.jpg';
 import { Typography } from '@material-tailwind/react';
 import Buttons from './Buttons';
 import RegisterForm from './RegisterForm';
@@ -22,7 +22,7 @@ function Landing() {
     <>
       <div
         className="relative w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
-        style={{ backgroundImage: `url(${landingPage2})` }}
+        style={{ backgroundImage: `url(${landingPage3})` }}
       >
         {/* Background Overlays */}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black to-transparent"></div>
