@@ -15,12 +15,14 @@ import Chat from './components/User/Chat.jsx';
 import OnboardForm from './components/User/OnboardForm.jsx';
 import ChatBot from './components/AIAgent/ChatBot.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Documentation from './components/Documentation.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
 
     <Route path="/" element={<Layout/>}>
       <Route path="" element={<Landing/>} />
+      <Route path="/documentation" element={<Documentation />} />
       <Route element={<ProtectedRoute />}>
       <Route path="/admin" element={<AdminHome/>}/>
       <Route path = "/user" element={<UserHome/>} />
