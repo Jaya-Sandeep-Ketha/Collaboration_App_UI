@@ -9,7 +9,7 @@ function Header() {
   const userString = localStorage.getItem('user');
   const user = JSON.parse(userString);
   // Hardcoded employee data
-  
+  console.log(user)
   const employeeDetails = user
     ? {
         name: user.name || 'N/A',
@@ -24,8 +24,25 @@ function Header() {
         location: 'Loading...',
       };
 
+      function getInitials(name) {
+        const nameParts = name.split(' ');
+        if (nameParts.length > 1) {
+          return `${nameParts[0][0]}${nameParts[1][0]}`;
+        } else if (nameParts.length === 1) {
+          return nameParts[0][0];  // Return the first letter of the only word if there's only one word
+        }
+        return '';  // Return an empty string if there's no name
+      }
+      
   // Generate initials (e.g., JD for John Doe)
-  const initials = `JD`;
+  
+  if(userString==null){
+    
+    var initials = 'AD'
+  }
+  else{
+    var initials = getInitials(user.name);
+  }
 
   // Handle sign out
   const handleSignOut = () => {
@@ -98,8 +115,8 @@ function Header() {
               <div className="p-4">
                 {/* Circular logo with initials */}
                 <div className="flex items-center space-x-3 mb-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-300 text-black font-bold text-xl">
-                    {initials}
+                  <div className="flex items-center justify-center w-5 h-5 p-5 rounded-full bg-gray-300 text-black font-bold text-xl">
+                    {`${initials[0]}${initials[1]}`}
                   </div>
                   <div>
                     <p className="font-semibold text-lg">{`${employeeDetails.name}`}</p>

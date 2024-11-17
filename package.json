@@ -17,6 +17,7 @@
     "react-collapsed": "^4.1.2",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
+    "react-transition-group": "^4.4.5",
     "typography": "^0.16.24"
   },
   "devDependencies": {
