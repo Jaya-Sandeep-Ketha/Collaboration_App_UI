@@ -23,12 +23,12 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout/>}>
       <Route path="" element={<Landing/>} />
       <Route path="/documentation" element={<Documentation />} />
+      <Route path='/users/onboarding' element={<OnboardForm/>}/>
       <Route element={<ProtectedRoute />}>
       <Route path="/admin" element={<AdminHome/>}/>
       <Route path = "/user" element={<UserHome/>} />
       <Route path='/user/taskForm' element={<TaskForm/>}/>
       <Route path="/chat" element={<Chat/>}/>
-      <Route path='/user/onboarding' element={<OnboardForm/>}/>
       <Route path='/chatbot' element = {<ChatBot/>}/>
       </Route>
     </Route>
