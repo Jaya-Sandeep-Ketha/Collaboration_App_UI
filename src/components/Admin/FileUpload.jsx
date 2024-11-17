@@ -16,11 +16,14 @@ function FileUpload() {
     <div className="backdrop-blur-sm bg-white/2 shadow-xl rounded-lg p-6 border border-white/20">
       <h2 className="text-lg font-semibold text-white mb-4">Upload CSV File</h2>
       <form onSubmit={handleUploadSubmit} className="space-y-4">
+      <label htmlFor="email_subject" className="block text-white">
+            CSV file
+          </label>
         <input
           type="file"
           accept=".csv"
           onChange={handleFileUpload}
-          className="block w-full text-white bg-transparent border border-white/30 rounded-lg p-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="block w-full text-white bg-transparent border border-white/30 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           type="submit"
