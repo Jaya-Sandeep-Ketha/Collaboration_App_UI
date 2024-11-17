@@ -1,6 +1,14 @@
+
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function EmployeeCards({ employees }) {
+  const navigate = useNavigate();
+
+  const handleConnect = (employee) => {
+    navigate(`/chat`, { state: { employee } });  // Pass employee data through state
+  };
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
       {employees.length > 0 ? (
@@ -27,6 +35,14 @@ function EmployeeCards({ employees }) {
                 <h4 className="text-white text-sm font-bold">Skills:</h4>
                 <p className="text-gray-300">{employee.details.skills}</p>
               </div>
+              
+              {/* Connect Button */}
+              <button
+                onClick={() => handleConnect(employee)}
+                className="mt-4 px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-600 block mx-auto"
+              >
+                Connect
+              </button>
             </div>
           </div>
         ))
