@@ -43,7 +43,7 @@ function HomeAdmin() {
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black via-transparent to-black"></div>
 
       {/* Content Section */}
-      <div className="relative w-full max-w-7xl px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 z-10">
+      <div className="relative w-full max-w-7xl px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-12 z-10 mt-20">
         {/* File Upload Section */}
         <FileUpload />
 
