@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import RegisterForm
- from './RegisterForm';
+import RegisterForm from './RegisterForm';
 function Buttons({onAdminClick, onUserClick}) {
 
     return (

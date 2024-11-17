@@ -1,23 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import landingPage3 from '../../assets/landingPage3.jpg';
 import { Typography } from '@material-tailwind/react';
 import Buttons from './Buttons';
 import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
-import { useState } from 'react';
-function Landing() {
-  const [isAdminBtnClicked, setIsAdminBtnClicked] = useState(false)
-  const [isUserBtnClicked, setIsUserBtnClicked] = useState(false)
+import AlreadyRegisteredAdmin from './AlreadyRegisteredAdmin';
 
+function Landing() {
+  const [isAdminBtnClicked, setIsAdminBtnClicked] = useState(true);
+  const [isUserBtnClicked, setIsUserBtnClicked] = useState(false);
+  const [isAlreadyBtnClicked, setIsAlreadyBtnClicked] = useState(false);
+
+  console.log(`adminbtn - ${isAdminBtnClicked}`)
+  console.log(`alreadyBtn - ${isAlreadyBtnClicked}`)
 
   const handleAdminBtnClick = () => {
-    setIsAdminBtnClicked(true)
-    setIsUserBtnClicked(false)
-  }
+    setIsAdminBtnClicked(true);
+    setIsUserBtnClicked(false);
+    setIsAlreadyBtnClicked(false)
+  };
+
   const handleUserBtnClick = () => {
-    setIsUserBtnClicked(true)
-    setIsAdminBtnClicked(false)
-  }
+    setIsUserBtnClicked(true);
+    setIsAdminBtnClicked(false);
+    setIsAlreadyBtnClicked(false)
+  };
+
+  const handleAdminAlreadyRegistered = () => {
+    setIsAlreadyBtnClicked((prev)=>!prev);
+  };
+  const handleAdminNotYetRegistered = () => {
+    setIsAlreadyBtnClicked(false);
+  };
+
   return (
     <>
       <div
@@ -35,13 +50,20 @@ function Landing() {
 
         {/* Buttons and Register Form Container */}
         <div className="absolute top-20 right-20 z-40">
-          {/* Buttons */}
-          <Buttons onAdminClick = {handleAdminBtnClick} onUserClick={handleUserBtnClick}/>
-          {/* Register Form */}
-          <div className="absolute mt-6 right-20">
-           {isAdminBtnClicked ? <RegisterForm/> :<LoginForm/>}
-          </div>
+          <Buttons onAdminClick={handleAdminBtnClick} onUserClick={handleUserBtnClick} />
 
+          {/* Conditional Rendering */}
+          <div className="mt-6">
+            {isAdminBtnClicked ? (
+              isAlreadyBtnClicked ? (
+                <AlreadyRegisteredAdmin notYetRegisteredAdmin={handleAdminNotYetRegistered}/>
+              ) : (
+                <RegisterForm alreadyRegisteredForAdmin={handleAdminAlreadyRegistered} />
+              )
+            ) : (
+              <LoginForm />
+            )}
+          </div>
         </div>
 
         {/* Main Content */}
