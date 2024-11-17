@@ -12,6 +12,8 @@ import AdminHome from './components/Admin/AdminHome.jsx';
 import UserHome from './components/User/UserHome.jsx';
 import TaskForm from './components/User/TaskForm.jsx';
 import Chat from './components/User/Chat.jsx';
+import OnboardForm from './components/User/OnboardForm.jsx';
+import ChatBot from './components/AIAgent/ChatBot.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +24,8 @@ const router = createBrowserRouter(
       <Route path = "/user" element={<UserHome/>} />
       <Route path='/user/taskForm' element={<TaskForm/>}/>
       <Route path="/chat" element={<Chat/>}/>
+      <Route path='/onboarding' element={<OnboardForm/>}/>
+      <Route path='/chatbot' element = {<ChatBot/>}/>
     </Route>
   )
 )
