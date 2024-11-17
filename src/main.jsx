@@ -10,6 +10,7 @@ import Layout from '../Layout/Layout.jsx'
 import Landing from './components/LandingPage/Landing.jsx';
 import AdminHome from './components/Admin/AdminHome.jsx';
 import UserHome from './components/User/UserHome.jsx';
+import TaskForm from './components/User/TaskForm.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path="" element={<Landing/>} />
       <Route path="/admin" element={<AdminHome/>}/>
       <Route path = "/user" element={<UserHome/>} />
+      <Route path='/user/taskForm' element={<TaskForm/>}/>
     </Route>
   )
 )
