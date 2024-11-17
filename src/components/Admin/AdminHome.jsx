@@ -31,7 +31,7 @@
 import React from "react";
 import FileUpload from "./FileUpload";
 import SendEmail from "./SendEmail";
-import AdminHomebg from "../../assets/AdminHomebg.jpg";
+import AdminHomebg from "../../assets/adminhomebg.jpg";
 
 function HomeAdmin() {
   return (
