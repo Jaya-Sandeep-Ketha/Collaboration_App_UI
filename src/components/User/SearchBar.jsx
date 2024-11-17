@@ -1,12 +1,47 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import EmployeeCards from './EmployeeCards';
 
-function SearchBar({ onSearch }) {
+function SearchBar() {
   const [projectId, setProjectId] = useState('');
   const [featureName, setFeatureName] = useState('');
   const [githubRepo, setGithubRepo] = useState('');
+  const [searchResults, setSearchResults] = useState(null);
+  const [error, setError] = useState('');
 
-  const handleSearchClick = () => {
-    onSearch(projectId, featureName, githubRepo);
+  const handleSearchClick = async () => {
+    setError('');
+    setSearchResults(null);
+
+    const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
+    if (!token) {
+      setError('Authentication token not found. Please log in.');
+      return;
+    }
+
+    try {
+      const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+      const response = await axios.post(
+        `${CORS_PROXY}https://touch.sandyjsk.xyz/api/users/projectdetails`,
+        {
+          product_name: projectId || undefined,
+          feature_name: featureName || undefined,
+          github_repo_name: githubRepo || undefined
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      setSearchResults(response.data);
+      console.log(response.data);
+    } catch (err) {
+      setError(err.response?.data?.message || 'An error occurred while fetching data');
+      console.error('Search error:', err);
+    }
   };
 
   return (
@@ -41,6 +76,15 @@ function SearchBar({ onSearch }) {
       >
         Search
       </button>
+
+      {error && (
+        <p className="text-red-500 mt-4">{error}</p>
+      )}
+      {searchResults && (
+      <EmployeeCards 
+        employees={searchResults}
+      /> )}
+      
     </div>
   );
 }
