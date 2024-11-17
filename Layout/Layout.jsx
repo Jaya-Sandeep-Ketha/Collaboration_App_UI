@@ -5,7 +5,7 @@ import Header from '../src/components/Header.jsx';
 
 function Layout() {
  const location = useLocation();
- const hideHeaderForPaths = ['/']
+ const hideHeaderForPaths = ['/','/documentation']
  const isHeaderAllowed = hideHeaderForPaths.includes(location.pathname);
 
   return (

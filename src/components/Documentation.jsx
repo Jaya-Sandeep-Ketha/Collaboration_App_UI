@@ -98,6 +98,7 @@ function Documentation() {
               rows: [
                 ["status", "String", "Success or Error"],
                 ["message", "String", "Registration successful/unsuccessful"],
+                ["company_code", "String", "Company code of the admin (unique to a company)"],
               ]
             }
           ]
@@ -140,7 +141,9 @@ function Documentation() {
                 title: "Request Parameters",
                 headers: ["Name", "Type", "Description"],
                 rows: [
+                  ["token", "String", "JWT token of the admin"],
                   ["file", "file_path", "path of the csv file with company's employees data"],
+                  
                 ]
               },
               {
@@ -208,16 +211,18 @@ function Documentation() {
             title: "Point of Contact details",
             content: [
               "Endpoint: users/projectdetails",
-              "Description: Used by users to fetch details of employees working in a specific project or on a feature or based on github repository."
+              "Description: Used by users to fetch details of employees working in a specific project or on a feature or based on github repository.",
+              "A single request parameter (product_name, feature_name, github_repo_name) is sufficient to gather the points of contact."
             ],
             tables: [
               {
                 title: "Request Parameters",
                 headers: ["Name", "Type", "Description"],
                 rows: [
-                  ["product_name", "String", "First name of the admin"],
-                  ["feature_name", "String", "Last name of the admin"],
-                  ["github_repo_name", "String", "Email ID of the admin"],
+                  ["product_name", "String", "Name of the project"],
+                  ["feature_name", "String", "Name of the feature"],
+                  ["github_repo_name", "String", "Name of the github repository"],
+                  ["token", "String", "JWT token of the user"],
                 ]
               },
               {
