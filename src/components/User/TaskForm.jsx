@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import {jwtDecode} from 'jwt-decode';
 import userHomebg1 from '../../assets/userHomebg1.jpg';
 
 function TaskForm() {
+  const email = localStorage.getItem('email');
   const [featureData, setFeatureData] = useState({
-    featureName: '',
-    featureDescription: '',
-    projectId: '',
+    feature_name: '',
+    project_id: '',
+    emailId: email,
+    company_code: ''
   });
 
   const [addedFeatures, setAddedFeatures] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        const company_code = decodedToken.company_code;
+        setFeatureData(prevData => ({ ...prevData, company_code }));
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        navigate('/login');
+      }
+    } else {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,9 +38,9 @@ function TaskForm() {
   };
 
   const handleAddFeature = () => {
-    if (featureData.featureName && featureData.featureDescription && featureData.projectId) {
+    if (featureData.feature_name && Number(featureData.project_id)) {
       setAddedFeatures((prevFeatures) => [...prevFeatures, featureData]);
-      setFeatureData({ featureName: '', featureDescription: '', projectId: '' });
+      setFeatureData(prevData => ({ ...prevData, feature_name: '', project_id: '' }));
     } else {
       alert('Please fill in all fields before adding.');
     }
@@ -32,9 +52,42 @@ function TaskForm() {
     );
   };
 
-  const handleSubmit = () => {
-    alert('Features submitted successfully!');
-    // Add submission logic here
+  const handleSubmit = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You are not authenticated. Please log in.');
+      navigate('/login');
+      return;
+    }
+
+    try {
+      const featuresWithProperProjectId = addedFeatures.map(feature => ({
+        ...feature,
+        project_id: feature.project_id ? Number(feature.project_id) || undefined : undefined
+      }));
+      console.log(featuresWithProperProjectId);
+      const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+      const response = await axios.post(
+        `${CORS_PROXY}https://touch.sandyjsk.xyz/api/users/submit`,
+         featuresWithProperProjectId ,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      console.log(response);
+      if (response.status === 201) {
+        alert('Features submitted successfully!');
+        setAddedFeatures([]);
+      } else {
+        alert('Failed to submit features. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting features:', error);
+      alert('An error occurred while submitting features. Please try again.');
+    }
   };
 
   return (
@@ -54,8 +107,8 @@ function TaskForm() {
           <div>
             <input
               type="text"
-              name="featureName"
-              value={featureData.featureName}
+              name="feature_name"
+              value={featureData.feature_name}
               onChange={handleChange}
               placeholder="Enter Feature Name"
               className="block w-full text-white bg-transparent border border-white/30 rounded-lg p-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -63,20 +116,10 @@ function TaskForm() {
           </div>
 
           <div>
-            <textarea
-              name="featureDescription"
-              value={featureData.featureDescription}
-              onChange={handleChange}
-              placeholder="Enter Feature Description"
-              className="block w-full text-white bg-transparent border border-white/30 rounded-lg p-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></textarea>
-          </div>
-
-          <div>
             <input
               type="text"
-              name="projectId"
-              value={featureData.projectId}
+              name="project_id"
+              value={featureData.project_id}
               onChange={handleChange}
               placeholder="Enter Project ID"
               className="block w-full text-white bg-transparent border border-white/30 rounded-lg p-3 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -106,13 +149,13 @@ function TaskForm() {
                 <button
                   onClick={() => handleRemoveFeature(index)}
                   className="absolute top-2 right-2 bg-transparent text-white text-sm rounded-full w-6 h-6 flex items-center justify-center shadow-md hover:bg-red-100 hover:text-black transition"
-                  >
+                >
                   &times;
                 </button>
                 <div className="p-4">
-                  <h3 className="text-lg font-bold text-white">{feature.featureName}</h3>
-                  <p className="text-gray-300">{feature.featureDescription}</p>
-                  <p className="text-gray-300"><strong>Project ID:</strong> {feature.projectId}</p>
+                  <h3 className="text-lg font-bold text-white">{feature.feature_name}</h3>
+                  <p className="text-gray-300"><strong>Project ID:</strong> {feature.project_id}</p>
+                  <p className="text-gray-300"><strong>Company Code:</strong> {feature.company_code}</p>
                 </div>
               </div>
             ))}
@@ -124,7 +167,6 @@ function TaskForm() {
       <button
         onClick={handleSubmit}
         className="fixed bottom-4 right-4 px-4 py-2 bg-blue-500 text-white text-sm font-semibold rounded shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
-        
       >
         Submit
       </button>
