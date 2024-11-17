@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       <Route path = "/user" element={<UserHome/>} />
       <Route path='/user/taskForm' element={<TaskForm/>}/>
       <Route path="/chat" element={<Chat/>}/>
-      <Route path='/onboarding' element={<OnboardForm/>}/>
+      <Route path='/user/onboarding' element={<OnboardForm/>}/>
       <Route path='/chatbot' element = {<ChatBot/>}/>
       </Route>
     </Route>
