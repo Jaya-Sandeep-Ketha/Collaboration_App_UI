@@ -1,30 +1,47 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import userHomebg1 from '../../assets/userHomebg1.jpg';
 
 function OnboardForm() {
-    const [formData, setFormData] = useState({
-        Employee_firstName: '',
-        Employee_lastName: '',
-        Email: '',
-        Chat_name: '',
-        Location: '',
-        Title: '',
-        Reporting_to: '',
-        Password: '',
-        Company_code: '',
-        Project_name: '',
-        Github_repo: ''
-    });
+    const initialFormData = {
+        employee_fname: '',
+        employee_lname: '',
+        email: '',
+        chat_name: '',
+        location: '',
+        title: '',
+        reports_to: '',
+        password: '',
+        company_code: '',
+        project_name: '',
+        github_repo_name: ''
+    };
+
+    const [formData, setFormData] = useState(initialFormData);
+    const [submitStatus, setSubmitStatus] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({ ...prevState, [name]: value }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form data submitted:', formData);
-        // Add form submission logic here
+        setSubmitStatus('Submitting...');
+        try {
+            const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+            const response = await axios.post(`${CORS_PROXY}https://touch.sandyjsk.xyz/api/users/add`, formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log('API response:', response.data);
+            setSubmitStatus('Submission successful!');
+            setFormData(initialFormData); // Reset form data
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            setSubmitStatus('Submission failed. Please try again.');
+        }
     };
 
     return (
@@ -40,7 +57,7 @@ function OnboardForm() {
                         {Object.keys(formData).map((key) => (
                             <input
                                 key={key}
-                                type="text"
+                                type={key === 'password' ? 'password' : 'text'}
                                 name={key}
                                 value={formData[key]}
                                 onChange={handleChange}
@@ -55,6 +72,9 @@ function OnboardForm() {
                     >
                         Submit
                     </button>
+                    {submitStatus && (
+                        <p className="mt-4 text-white">{submitStatus}</p>
+                    )}
                 </form>
             </div>
         </div>

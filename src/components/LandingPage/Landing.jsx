@@ -5,6 +5,7 @@ import Buttons from './Buttons';
 import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
 import AlreadyRegisteredAdmin from './AlreadyRegisteredAdmin';
+import { Link } from "react-router-dom";
 
 function Landing() {
   const [isAdminBtnClicked, setIsAdminBtnClicked] = useState(true);
@@ -23,7 +24,7 @@ function Landing() {
   const handleUserBtnClick = () => {
     setIsUserBtnClicked(true);
     setIsAdminBtnClicked(false);
-    setIsAlreadyBtnClicked(false)
+    setIsAlreadyBtnClicked(false);
   };
 
   const handleAdminAlreadyRegistered = () => {
@@ -45,8 +46,21 @@ function Landing() {
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-5"></div>
         <div
           className="absolute top-0 left-0 w-full h-full"
-          style={{ backdropFilter: 'blur(10px)' }}
+          style={{ backdropFilter: "blur(10px)" }}
         ></div>
+
+{/* Documentation Link */}
+<div className="absolute top-6 right-6 z-50">
+         <Link to="/documentation">
+           <Typography
+             as="a"
+             color="white"
+             className="text-white text-lg font-semibold hover:text-blue-500"
+           >
+             Documentation
+           </Typography>
+         </Link>
+       </div>
 
         {/* Buttons and Register Form Container */}
         <div className="absolute top-20 right-20 z-40">
