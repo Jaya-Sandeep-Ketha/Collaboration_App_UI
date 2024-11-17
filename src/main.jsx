@@ -14,18 +14,21 @@ import TaskForm from './components/User/TaskForm.jsx';
 import Chat from './components/User/Chat.jsx';
 import OnboardForm from './components/User/OnboardForm.jsx';
 import ChatBot from './components/AIAgent/ChatBot.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
 
     <Route path="/" element={<Layout/>}>
       <Route path="" element={<Landing/>} />
+      <Route element={<ProtectedRoute />}>
       <Route path="/admin" element={<AdminHome/>}/>
       <Route path = "/user" element={<UserHome/>} />
       <Route path='/user/taskForm' element={<TaskForm/>}/>
       <Route path="/chat" element={<Chat/>}/>
       <Route path='/onboarding' element={<OnboardForm/>}/>
       <Route path='/chatbot' element = {<ChatBot/>}/>
+      </Route>
     </Route>
   )
 )

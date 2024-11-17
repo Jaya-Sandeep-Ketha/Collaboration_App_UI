@@ -6,23 +6,43 @@ import logo from "/src/assets/logo.jpg"; // Import your logo image
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate(); // Initialize useNavigate hook
-
+  const userString = localStorage.getItem('user');
+  const user = JSON.parse(userString);
   // Hardcoded employee data
-  const employeeDetails = {
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@example.com",
-    title: "Software Engineer",
-    location: "New York",
-  };
+  
+  const employeeDetails = user
+    ? {
+        name: user.name || 'N/A',
+        email: localStorage.getItem('email') || 'N/A',
+        title: user.title || 'N/A',
+        location: user.location || 'N/A',
+      }
+    : {
+        name: 'Loading...',
+        email: 'Loading...',
+        title: 'Loading...',
+        location: 'Loading...',
+      };
 
   // Generate initials (e.g., JD for John Doe)
-  const initials = `${employeeDetails.firstName[0]}${employeeDetails.lastName[0]}`;
+  const initials = `JD`;
 
   // Handle sign out
   const handleSignOut = () => {
-    // Perform any sign-out logic if necessary (e.g., clearing tokens, user data)
-    navigate('/'); // Navigate to the Landing page
+    localStorage.removeItem('token');
+    localStorage.removeItem('companyCode');
+    localStorage.removeItem('email');
+    localStorage.removeItem('user');
+    
+    // You can also clear any other user-related data stored in localStorage
+    // For example:
+    // localStorage.removeItem('userData');
+
+    // Close the menu
+    setIsMenuOpen(false);
+
+    // Navigate to the home page
+    navigate('/');
   };
 
   return (
@@ -67,7 +87,7 @@ function Header() {
                     {initials}
                   </div>
                   <div>
-                    <p className="font-semibold text-lg">{`${employeeDetails.firstName} ${employeeDetails.lastName}`}</p>
+                    <p className="font-semibold text-lg">{`${employeeDetails.name}`}</p>
                     <p className="text-gray-600">{employeeDetails.email}</p>
                   </div>
                 </div>
