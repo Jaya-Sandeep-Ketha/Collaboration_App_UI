@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AdminHomebg from "../assets/AdminHomebg.jpg";
+import AdminHomebg from "../../assets/adminhomebg.jpg";
 
 const CollapsibleSection = ({ title, content, tables }) => {
   const [isOpen, setIsOpen] = useState(false);
