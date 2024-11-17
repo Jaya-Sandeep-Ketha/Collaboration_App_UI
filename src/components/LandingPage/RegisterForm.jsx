@@ -68,7 +68,15 @@ function RegisterForm({ alreadyRegisteredForAdmin }) {
 
   return (
     <div className="w-full flex items-center justify-center mr-20 ml-20 mb-20">
-      <div className="relative flex flex-col rounded-xl border border-gray-300 md:px-8 md:py-10 px-6 py-8 w-full max-w-4xl">
+      <div className="relative flex flex-col rounded-xl border border-gray-300 md:px-8 md:py-10 px-6 py-8 w-full max-w-4xl"
+      style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent white
+          backdropFilter: 'blur(10px)', // Frosted glass effect
+          WebkitBackdropFilter: 'blur(10px)', // Frosted glass effect for Safari
+          borderRadius: '15px', // Rounded corners
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow
+          border: '1px solid rgba(255, 255, 255, 0.3)' // Light border
+        }}>
         <Typography
           variant="h1"
           color="blue-gray"
@@ -76,6 +84,7 @@ function RegisterForm({ alreadyRegisteredForAdmin }) {
         >
           Register
         </Typography>
+        <div className="my-2 w-full max-w-4xl mx-auto h-0.5 bg-gray-400"></div>  {/* Adjusted the width and color */}
         <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-6 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* First Name */}
@@ -92,6 +101,7 @@ function RegisterForm({ alreadyRegisteredForAdmin }) {
                 color="gray"
                 className="placeholder:text-slate-400 p-2 text-white"
                 onChange={handleChange}
+                
               />
             </div>
             {/* Last Name */}
@@ -184,15 +194,24 @@ function RegisterForm({ alreadyRegisteredForAdmin }) {
           )}
 
           {/* Buttons */}
-          <Button type="submit" color="gray" fullWidth size="lg" className="mt-4 p-2">
+          <Button
+            type="submit"
+            color="gray"
+            fullWidth
+            size="lg"
+            className="mt-2 p-2"
+            style={{ boxShadow: 'none' }}  // Remove the shadow
+          >
             Sign Up
           </Button>
 
+          
           <Button
             color="gray"
             fullWidth
             size="lg"
-            className="mt-4 p-2"
+            className="mt-1 p-1"
+            style={{ boxShadow: 'none' ,textDecoration: 'underline' }} // Remove the shadow
             onClick={alreadyRegisteredForAdmin}
           >
             Already registered? Log in

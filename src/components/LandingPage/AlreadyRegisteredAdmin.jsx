@@ -53,7 +53,15 @@ function AlreadyRegisteredAdmin({ notYetRegisteredAdmin }) {
 
     return (
         <div className="w-full flex items-center justify-start mr-10 ml-20 mb-20">
-            <div className="relative flex flex-col rounded-xl border border-gray-300 md:px-8 md:py-10 px-6 py-8 w-full max-w-3xl">
+            <div className="relative flex flex-col rounded-xl border border-gray-300 md:px-8 md:py-10 px-6 py-8 w-full max-w-3xl"
+                 style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Semi-transparent white
+                    backdropFilter: 'blur(10px)', // Frosted glass effect
+                    WebkitBackdropFilter: 'blur(10px)', // Frosted glass effect for Safari
+                    borderRadius: '15px', // Rounded corners
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)', // Subtle shadow
+                    border: '1px solid rgba(255, 255, 255, 0.3)' // Light border
+                  }}>
                 <Typography
                     variant="h1"
                     color="blue-gray"
@@ -61,6 +69,7 @@ function AlreadyRegisteredAdmin({ notYetRegisteredAdmin }) {
                 >
                     Admin Login
                 </Typography>
+                <div className="my-2 w-full max-w-4xl mx-auto h-0.5 bg-gray-400"></div>  {/* Adjusted the width and color */}
                 <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4 w-full">
                     {/* Email ID */}
                     <div>
@@ -104,15 +113,16 @@ function AlreadyRegisteredAdmin({ notYetRegisteredAdmin }) {
                     )}
 
                     {/* Login Button */}
-                    <Button type="submit" color="gray" fullWidth size="lg" className="mt-4 p-2">
+                    <Button type="submit" color="gray" fullWidth size="lg" className="mt-1 p-2" style={{ boxShadow: 'none' }}>
                         Login
                     </Button>
                     <Button 
                         color="gray" 
                         fullWidth 
                         size="lg" 
-                        className="mt-4 p-2"
+                        className="mt-2 p-2"
                         onClick={notYetRegisteredAdmin}
+                        style={{ boxShadow: 'none' ,textDecoration: 'underline' }}
                     >
                         Not yet registered ? Register
                     </Button>

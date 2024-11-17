@@ -79,7 +79,22 @@ function Header() {
 
           {/* Dropdown Menu */}
           {isMenuOpen && (
-            <div className="absolute right-0 mt-2 w-64 bg-[rgba(255,255,255,0.1)] backdrop-blur-lg text-white rounded-lg shadow-lg z-50">
+            <div className="absolute right-0 mt-2 w-64 bg-[rgba(255,255,255,0.1)] backdrop-blur-lg text-white rounded-lg shadow-lg z-50"
+              style={{
+                position: 'absolute',
+                right: '0',
+                top: '100%',
+                width: '256px',  // Equivalent to w-64 in TailwindCSS
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',  // For Safari
+                borderRadius: '8px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                zIndex: 50,
+                overflowY: 'auto',  // Adds vertical scrolling
+                maxHeight: '90vh',  // Maximum height before scrolling
+                marginRight: '10px'
+              }}>
               <div className="p-4">
                 {/* Circular logo with initials */}
                 <div className="flex items-center space-x-3 mb-4">
@@ -117,3 +132,5 @@ function Header() {
 }
 
 export default Header;
+
+

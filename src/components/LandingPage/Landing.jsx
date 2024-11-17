@@ -50,7 +50,12 @@ function Landing() {
 
         {/* Buttons and Register Form Container */}
         <div className="absolute top-20 right-20 z-40">
-          <Buttons onAdminClick={handleAdminBtnClick} onUserClick={handleUserBtnClick} />
+        <Buttons 
+            onAdminClick={handleAdminBtnClick} 
+            onUserClick={handleUserBtnClick}
+            isAdminActive={isAdminBtnClicked}
+            isUserActive={isUserBtnClicked}
+          />
 
           {/* Conditional Rendering */}
           <div className="mt-6">
